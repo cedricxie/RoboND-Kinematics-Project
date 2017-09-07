@@ -4,7 +4,7 @@
 
 [//]: # (Image References)
 
-[image1]: DH_Sketch.PNG
+[image1]: DH_Sketch.png
 [image2]: IK.png
 [image3]: IK2.png
 [image4]: IK3.png
@@ -44,13 +44,65 @@ Special thanks to Wenjin Tao for the images he shared to calculate thetas 1, 2, 
 
 ![DH][image2]
 
-##### Inverse position calculation
-
 ![DH2][image3]
+
+3.1 Theta 1
+```py
+theta1 = (atan2(wy, wx)).evalf()
+```
+
+3.2 Theta 2 and 3
+The [law of cosines](https://en.wikipedia.org/wiki/Law_of_cosines) was used calculate theta 2 and 3.
+
+```py
+s1 = sqrt(wx**2 + wy**2) - a_1
+s2 = wz - d_1
+s3 = sqrt(s2**2 + s1**2)
+s4 = sqrt(a_3**2 + d_4**2)
+beta1 = atan2(s2, s1)
+
+D2 = (a_2**2 + s3**2 - s4**2) / (2 * a_2 * s3)
+beta2 = atan2(sqrt(1 - D2**2), D2)
+
+D3 = (a_2**2 + s4**2 - s3**2) / (2 * a_2 * s4)
+beta3 = atan2(sqrt(1 - D3**2), D3)
+
+beta4 = atan2(-a_3, d_4)
+```
+
+```py
+theta2 = ((pi / 2) - beta2 - beta1).evalf()
+theta3 = ((pi / 2) - beta4 - beta3).evalf()
+```
 
 ##### Inverse orientation calculation
 
 ![DH3][image4]
+
+3.3 Theta 4, 5 and 6
+
+The orientation matrix of R0\_3 is extracted from T0\_3 and its inverse is found. When R0\_6 is multiplied by the inverse of R0\_3, the result is R3\_6.
+
+```py
+R0_3 = T0_3[0:3, 0:3]
+R0_3 = R0_3.evalf(subs={q1: theta1, q2: theta2, q3: theta3})
+R0_3_inv = R0_3.transpose()
+R3_6 = R0_3_inv * R0_6
+```
+
+```py
+r13 = R3_6[0, 2]
+r33 = R3_6[2, 2]
+r23 = R3_6[1, 2]
+r21 = R3_6[1, 0]
+r22 = R3_6[1, 1]
+r12 = R3_6[0, 1]
+r32 = R3_6[2, 1]
+
+theta5 = (atan2(sqrt(r13**2 + r33**2), r23)).evalf()
+theta4 = (atan2(r33, -r13)).evalf()
+theta6 = (atan2(-r22, r21)).evalf()
+```
 
 ### Project Implementation
 
