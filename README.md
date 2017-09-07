@@ -52,6 +52,7 @@ theta1 = (atan2(wy, wx)).evalf()
 ```
 
 3.2 Theta 2 and 3
+
 The [law of cosines](https://en.wikipedia.org/wiki/Law_of_cosines) was used calculate theta 2 and 3.
 
 ```py
@@ -74,8 +75,6 @@ beta4 = atan2(-a_3, d_4)
 theta2 = ((pi / 2) - beta2 - beta1).evalf()
 theta3 = ((pi / 2) - beta4 - beta3).evalf()
 ```
-
-##### Inverse orientation calculation
 
 ![DH3][image4]
 
