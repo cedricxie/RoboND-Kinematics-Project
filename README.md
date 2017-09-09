@@ -8,6 +8,8 @@
 [image2]: IK.png
 [image3]: IK2.png
 [image4]: IK3.png
+[image5]: grasp.png
+[image6]: release.png
 
 ---
 ### Writeup / README
@@ -108,6 +110,10 @@ theta6 = (atan2(-r22, r21)).evalf()
 #### 1. Fill in the `IK_server.py` file with properly commented python code for calculating Inverse Kinematics based on previously performed Kinematic Analysis. Your code must guide the robot to successfully complete 8/10 pick and place cycles. Briefly discuss the code you implemented and your results.
 
 
-1. Heavily utilized the script `IK_debug.py` to speed up the trial-and-error process. Adding the FK calculation in the script helps a lot. Since an arm can have multiple orientations, the errors can be non zero. But by including FK calculations, we can still see if the correct EE is reached.
+1. The first obstacle is that the debugging process of the IK process could be labor-some and tedious. It is solved by heavily utilized the script `IK_debug.py` to speed up the trial-and-error process. Adding the FK calculation in the script helps a lot. Since an arm can have multiple orientations, the errors can be non zero. But by including FK calculations, we can still see if the correct EE is reached.
 
-2. Moved the `sympy` math out of the `for` loop. Generating transformation matrices is a time consuming process, and since this process needs to happen only once, it is removed from the loop. As a result, the run time is reduced significantly.
+2. The second obstacle is that the calculation of IK could be slow. It is solved by moving the `sympy` math out of the `for` loop. Generating transformation matrices is a time consuming process, and since this process needs to happen only once, it is removed from the loop. As a result, the run time is reduced significantly.
+
+The screen-shots below show the grasping process of the robot arm as well as the bin falling into bin after releasing.
+![grasp][image5]
+![release][image6]

@@ -126,6 +126,7 @@ def handle_calculate_IK(req):
             a_1 = s[a1]
             a_2 = s[a2]
 
+            # Implementing law of cosines to evaluate angles as shown in the figure in the Readme
             theta1 = (atan2(wy, wx)).evalf()
 
             s1 = sqrt(wx**2 + wy**2) - a_1
